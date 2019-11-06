@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## YetYet Another React Boilerplate
+Bla-bla-bla, Super mega awesome yet-yet another waste of my skills.
 
 ## Available Scripts
 
