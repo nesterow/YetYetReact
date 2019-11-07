@@ -2,69 +2,100 @@
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import useStyles from './TodoItem.style'
-import {removeTodoAsync, saveTodoAcync} from '../../actions' 
+import {removeTodoAsync, saveTodoAcync, setFocus} from '../../actions' 
 import { RootState } from 'AppTypes'
 import {Todo} from 'AppModels'
+
+enum Keys {
+    Enter = 'Enter'
+}
 
 type Props = {
     id: any,
     value: string,
     save: Function,
-    remove: Function
+    remove: Function,
+    focus: Function
 } 
 & ReturnType<typeof mapState>
 
 const mapState = (state: RootState) => ({
-    isRemoving: state.todos.isRemoving,
-    todos: state.todos.todos
+    focused: state.todos.focusedId,
+    removing: state.todos.removingId,
+    //saving: state.todos.savingId
 })
 
 const mapDispatch = {
     save: saveTodoAcync.request,
-    remove: removeTodoAsync.request
+    remove: removeTodoAsync.request,
+    focus: setFocus
 }
 
 
-const TodoItem = ({ value, id, save, remove, isRemoving }: Props) => {
+const TodoItem = ({ value, id, save, remove, focus, removing, focused }: Props) => {
+
+    const isRemoving = removing === id
+    const isSaving = focused === id
+    const isEditing = focused === id 
 
     let inputRef: HTMLInputElement|null = null
-
     useEffect(() => {
         if (inputRef) inputRef.focus()
     })
-    console.log(1, isRemoving[id])
-    const [isEditing, setEditing] = useState(false)
 
-
-    const cancelEdit = () => setEditing(false)
-    const startEdit = () => setEditing(true)
+    const [inputValue, setInput] = useState('')
 
     const saveTodo = () => {
         if (inputRef && inputRef.value) {
             const updatedTodo: Todo = {
                 id, 
-                title: inputRef.value
+                title: inputValue || value
             }
             save(updatedTodo)
+            setInput('')
         }
     }
 
     const deleteTodo = (ev: React.MouseEvent) => {
-        ev.stopPropagation()
         remove(id)
     }
 
-
     const classes = useStyles()
+    const startEdit = (ev: any) => {
+        if (ev.target.tagName === 'BUTTON')
+            return
+        if(isRemoving || isSaving)
+            return
+        focus(id)
+    }
+
+    const handleKeyboard = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+        switch(ev.key) {
+            case Keys.Enter:
+                saveTodo()
+                break
+            default:
+                setInput((ev.target as any).value)
+        }
+    }
+
+    const stopPropagation = (e: any) => e.stopPropagation()
+
 
     const Input = (
-        <input ref={(e) => {inputRef = e}} defaultValue={value} onBlur={cancelEdit} />
+        <input ref={(e) => {inputRef = e}} 
+            onKeyUp={handleKeyboard} 
+            defaultValue={value}
+            className={classes.input}
+        />
     )
     const Title = (
-        <span>{value}</span>
+        <span className={classes.title} onMouseDown={stopPropagation}>{value}</span>
     )
     const Delete = (
-        <button onClick={deleteTodo}>Delete</button>
+        <button onClick={deleteTodo} onMouseDown={stopPropagation}>
+            Delete
+        </button>
     )
     const Save = (
         <>
@@ -72,9 +103,8 @@ const TodoItem = ({ value, id, save, remove, isRemoving }: Props) => {
         {Delete}
         </>
     )
-
     return (
-        <div className={classes.todoItem} onClick={startEdit} onFocus={startEdit} onBlur={cancelEdit} tabIndex={0}>
+        <div className={classes.todoItem} onClick={startEdit} onFocus={startEdit} tabIndex={0}>
             {isEditing ? Input : Title}
             <div className={classes.todoAction}>
                 {isEditing ? Save : Delete}

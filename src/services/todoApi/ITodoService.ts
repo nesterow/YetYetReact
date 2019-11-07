@@ -1,7 +1,7 @@
 export default interface ITodoService {
     type: string,
-    find(options: { filter?: any, sort?: any, limit?: any, offset?: any }): Promise<void>
-    create(text: string) : Promise<void>
-    update(id: any, text: string): Promise<void>
-    delete(id: any): Promise<void>
+    find(options: { search?: string }): Promise<any>
+    create(title: string) : Promise<any>
+    update(id: any, text: string): Promise<any>
+    delete(id: any): Promise<any>
 }

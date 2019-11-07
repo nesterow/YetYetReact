@@ -1,9 +1,9 @@
 import * as React from 'react'
-
+import {Route} from 'react-router-dom'
 import Todos from '../views/todos'
 
 export default () => (
-    <main>
+    <Route exact path="/todo">
         <Todos />
-    </main>
+    </Route>
 )

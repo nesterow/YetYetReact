@@ -1,6 +1,6 @@
 declare module 'AppModels' {
     export type Todo = {
-      id: string;
+      id: number;
       title: string;
     };
 }

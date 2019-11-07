@@ -2,7 +2,7 @@ import { Todo } from 'AppModels';
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
 
-import { getTodosAsync, addTodoAsync, removeTodoAsync } from './actions';
+import { getTodosAsync, addTodoAsync, removeTodoAsync, setFocus } from './actions';
 
 
 export const isLoading = createReducer(false as boolean)
@@ -18,30 +18,28 @@ export const isLoading = createReducer(false as boolean)
 export const todos = createReducer([] as Todo[])
   .handleAction(
       getTodosAsync.success as any, 
-      (state, action) => action.payload
+      (state, action) => {
+        return action.payload
+      }
   )
-  .handleAction(
-      addTodoAsync.request as any, 
-      (state, action) => [...state, action.payload]
-  )
-  .handleAction(
-      removeTodoAsync.request as any,
-      (state, action) => state.filter(i => i.id !== action.payload)
-  );
 
-export const isRemoving = createReducer({} as any)
+export const removingId = createReducer({} as any)
   .handleAction(
     [removeTodoAsync.request] as any, 
-    (state, action) => ({[action.payload]: true})
+    (state, action) => action.payload
   )
   .handleAction(
     [removeTodoAsync.success, removeTodoAsync.failure] as any,
-    (state, action) => ({})
+    (state, action) => null
   );
+
+export const focusedId = createReducer(-1 as number)
+    .handleAction(setFocus, (state, action) => action.payload)
 
 const todosReducer = combineReducers({
   isLoading,
-  isRemoving,
+  removingId,
+  focusedId,
   todos,
 });
 
