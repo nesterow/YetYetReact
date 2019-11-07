@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { RootState } from 'AppTypes'
 
 import {Todo} from 'AppModels'
-
-import {addTodoAsync} from '../actions' 
+import {addTodoAsync} from '../../actions' 
+import useStyles from './TodoForm.style'
 
 type Props = {
     placeholder?: string,

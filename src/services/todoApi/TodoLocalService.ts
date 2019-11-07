@@ -2,7 +2,7 @@ import {Todo} from 'AppModels'
 import ITodoService from './ITodoService'
 import qs from 'querystring'
 
-const KEY = '__TODOS__'
+export const KEY = '__TODOS__'
 
 const emulateDelay = () => new Promise((resolve) => {
     setTimeout(resolve, Math.round(Math.random() * 1000))
@@ -34,7 +34,7 @@ class TodoLocalService implements ITodoService {
             limit, 
             offset, 
         } = qs.parse(search)
-        
+
         let result: Todo[] = this.db
 
         const paginate = () => result.slice(
