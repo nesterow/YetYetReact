@@ -33,11 +33,17 @@ class TodoLocalService implements ITodoService {
             filter, 
             limit, 
             offset, 
-        } = qs.parse(search)
+        } = qs.parse(search.replace('?', ''))
 
         let result: Todo[] = this.db
 
         const paginate = () => result.slice(
+            parseInt(offset as any), 
+            (parseInt(offset as any) + parseInt(limit as any)) || 10
+        )
+        
+        console.log(offset, limit)
+        console.log(
             parseInt(offset as any), 
             (parseInt(offset as any) + parseInt(limit as any)) || 10
         )
@@ -57,6 +63,7 @@ class TodoLocalService implements ITodoService {
                 })
             return paginate()
         }
+        console.log(paginate())
         return paginate()
     }
 

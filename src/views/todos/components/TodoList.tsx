@@ -1,14 +1,15 @@
-import * as React from 'react'
+import React, {useState} from 'react'
 import { connect } from 'react-redux'
 import { RootState } from 'AppTypes'
 import qs from 'querystring'
 
-import {push} from 'connected-react-router'
+import {push,} from 'connected-react-router'
 import {Todo} from 'AppModels'
 import {getTodosAsync} from '../actions' 
+
 import TodoItem from './TodoItem'
 import TodoForm from './TodoForm'
-
+import TodoPagination from './TodoPagination'
 
 type Props = {
     fetch: Function
@@ -27,25 +28,41 @@ const mapDispatch = {
     push
 }
 
+const TodoList = function ({ isLoading, todos = [] as Todo[], fetch, router, push}: Props) {
 
+    const search = qs.parse(router.location.search.replace('?', '')) // qs.parse() prefixes '?' to the first param
+    delete search['?']
 
-const TodoList = ({ isLoading, todos = [] as Todo[], fetch, router, push}: Props) => {
-    const search = qs.parse(router.location.search)
+    const pushState = (queryObject: any) => {
+        let query = qs.stringify({
+            ...search,
+            ...queryObject,
+        })
+        console.log({
+            ...search,
+            ...queryObject,
+        },query)
+        push(router.location.pathname + '?' + query)
+    }
 
     if (
         search.filter === undefined  || 
         search.limit  === undefined  ||
         search.offset === undefined
-    ) push(router.location.pathname+ "?&" +qs.stringify({
+    ) pushState({
         filter:'', 
         offset: 0, 
-        limit:0, 
-        ...search
-    }))
+        limit:10, 
+    })
 
-    if (!todos.length)
+    const { limit, offset } = search
+    const [cache, setCache] = useState('')
+
+    if (cache !== router.location.search) {
+        setCache(router.location.search)
         fetch(router.location)
-        
+    } 
+
     return (
         <section>
             <TodoForm />
@@ -56,6 +73,16 @@ const TodoList = ({ isLoading, todos = [] as Todo[], fetch, router, push}: Props
                     </li>
                 ))}
             </ul>
+            <TodoPagination 
+                limit={parseInt(limit as string)} 
+                offset={parseInt(offset as string)} 
+                total={30}
+                onChange={({offset}: any) => {
+                    pushState({
+                        offset,
+                    })
+                }} 
+            />
         </section>
     )
 }
