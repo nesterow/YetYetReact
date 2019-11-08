@@ -1,11 +1,12 @@
 import {Todo} from 'AppModels'
 import ITodoService from './ITodoService'
+import {TodoResponse} from 'AppTypes'
 import qs from 'querystring'
 
 export const KEY = '__TODOS__'
 
 const emulateDelay = () => new Promise((resolve) => {
-    setTimeout(resolve, Math.round(Math.random() * 1000))
+    setTimeout(resolve, Math.round(Math.random() * 2000))
 })
 
 class TodoLocalService implements ITodoService {
@@ -26,7 +27,7 @@ class TodoLocalService implements ITodoService {
         this.db = this.serialize()
     }
 
-    find = async ({search = '',}) => {
+    find = async ({search = '',}): Promise<TodoResponse> => {
 
         const {
             sort = 'desc',
@@ -37,16 +38,13 @@ class TodoLocalService implements ITodoService {
 
         let result: Todo[] = this.db
 
-        const paginate = () => result.slice(
-            parseInt(offset as any), 
-            (parseInt(offset as any) + parseInt(limit as any)) || 10
-        )
-        
-        console.log(offset, limit)
-        console.log(
-            parseInt(offset as any), 
-            (parseInt(offset as any) + parseInt(limit as any)) || 10
-        )
+        const paginate = (): TodoResponse => ({
+            total: this.db.length,
+            data: result.slice(
+                parseInt(offset as any), 
+                (parseInt(offset as any) + parseInt(limit as any)) || 10
+            )
+        })
 
         if (sort === 'desc')
             result = result.sort((a: Todo, b: Todo) => b.id - a.id)
@@ -63,7 +61,6 @@ class TodoLocalService implements ITodoService {
                 })
             return paginate()
         }
-        console.log(paginate())
         return paginate()
     }
 

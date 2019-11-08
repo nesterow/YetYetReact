@@ -1,3 +1,3 @@
-import TodosView from './components/TodosView'
+import TodoList from './components/TodoList'
 
-export default TodosView
+export default TodoList

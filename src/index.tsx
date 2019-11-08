@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import {history} from './store'
 import Home from './routes/home'
 import store from './store'
+import './styles/index.scss'
 
 const App = () => (
   <Provider store={store}>

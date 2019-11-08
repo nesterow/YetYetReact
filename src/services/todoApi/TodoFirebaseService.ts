@@ -9,7 +9,7 @@ class TodoFirebaseService implements ITodoService {
 
     }
 
-    find = async ({search = ''}) => {
+    find = async ({search = ''}): Promise<any> => {
         
     }
 

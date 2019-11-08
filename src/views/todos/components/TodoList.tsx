@@ -1,19 +1,22 @@
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
-import { RootState } from 'AppTypes'
+import { RootState, TodoResponse } from 'AppTypes'
 import qs from 'querystring'
 
 import {push,} from 'connected-react-router'
 import {Todo} from 'AppModels'
-import {getTodosAsync} from '../actions' 
 
 import TodoItem from './TodoItem'
 import TodoForm from './TodoForm'
 import TodoPagination from './TodoPagination'
+import useStyle from './TodoList.style'
+
+import {getTodosAsync, setFocus} from '../actions' 
 
 type Props = {
     fetch: Function
-    push: Function
+    push: Function,
+    focus: Function
 } 
 & ReturnType<typeof mapState>
 
@@ -24,24 +27,20 @@ const mapState = (state: RootState) => ({
 })
 
 const mapDispatch = {
+    focus: setFocus,
     fetch: getTodosAsync.request,
     push
 }
 
-const TodoList = function ({ isLoading, todos = [] as Todo[], fetch, router, push}: Props) {
+const TodoList = function ({ isLoading, todos = {} as TodoResponse, fetch, router, push, focus}: Props) {
 
     const search = qs.parse(router.location.search.replace('?', '')) // qs.parse() prefixes '?' to the first param
-    delete search['?']
 
     const pushState = (queryObject: any) => {
         let query = qs.stringify({
             ...search,
             ...queryObject,
         })
-        console.log({
-            ...search,
-            ...queryObject,
-        },query)
         push(router.location.pathname + '?' + query)
     }
 
@@ -61,22 +60,34 @@ const TodoList = function ({ isLoading, todos = [] as Todo[], fetch, router, pus
     if (cache !== router.location.search) {
         setCache(router.location.search)
         fetch(router.location)
-    } 
+    }
 
+    const classes = useStyle({isLoading,})
+
+    const Empty = (
+        <small>
+            You have nothing to do 🙃
+        </small>
+    )
+
+    
     return (
-        <section>
+        <section onClick={()=>{focus(-1)}} className={classes.todoListContainer + (isLoading ? " loading" : '')}>
             <TodoForm />
-            <ul className='todolist'>
-                {todos.map((todo: Todo) => (
-                    <li className='todolist__item' key={todo.id}>
+            
+            <ul className={classes.todoListItems} onClick={(e)=> e.stopPropagation()}>
+                {todos.data.map((todo: Todo) => (
+                    <li className={classes.todoListItemWrapper} key={todo.id}>
                          <TodoItem value={todo.title} id={todo.id}/>
                     </li>
                 ))}
+                { todos.total === 0 ? Empty : '' }
             </ul>
+
             <TodoPagination 
                 limit={parseInt(limit as string)} 
                 offset={parseInt(offset as string)} 
-                total={30}
+                total={todos.total}
                 onChange={({offset}: any) => {
                     pushState({
                         offset,

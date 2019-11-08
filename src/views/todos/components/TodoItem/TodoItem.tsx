@@ -38,9 +38,14 @@ const TodoItem = ({ value, id, save, remove, focus, removing, focused }: Props) 
     const isSaving = focused === id
     const isEditing = focused === id 
 
-    let inputRef: HTMLInputElement|null = null
+    let inputRef: HTMLTextAreaElement|null = null
     useEffect(() => {
-        if (inputRef) inputRef.focus()
+        if (inputRef) {
+            if(!inputRef.style.height) {
+                inputRef.style.height = inputRef.scrollHeight + 'px'
+            }
+            inputRef.focus()
+        }
     })
 
     const [inputValue, setInput] = useState('')
@@ -58,6 +63,7 @@ const TodoItem = ({ value, id, save, remove, focus, removing, focused }: Props) 
 
     const deleteTodo = (ev: React.MouseEvent) => {
         remove(id)
+        focus(-1)
     }
 
     const classes = useStyles()
@@ -69,10 +75,14 @@ const TodoItem = ({ value, id, save, remove, focus, removing, focused }: Props) 
         focus(id)
     }
 
-    const handleKeyboard = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyboard = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
         switch(ev.key) {
             case Keys.Enter:
-                saveTodo()
+                if (ev.ctrlKey) {
+                    // need to handle mac's Cmd key as well
+                    ev.preventDefault()
+                    saveTodo()
+                }
                 break
             default:
                 setInput((ev.target as any).value)
@@ -83,21 +93,21 @@ const TodoItem = ({ value, id, save, remove, focus, removing, focused }: Props) 
 
 
     const Input = (
-        <input ref={(e) => {inputRef = e}} 
-            onKeyUp={handleKeyboard} 
+        <textarea ref={(e) => {inputRef = e}} 
+            onKeyUp={handleKeyboard}
             defaultValue={value}
             className={classes.input}
         />
     )
     const Title = (
-        <span className={classes.title} onMouseDown={stopPropagation}>{value}</span>
+        <pre className={classes.title} onMouseDown={stopPropagation}>{value}</pre>
     )
     const Delete = (
         <button onClick={deleteTodo} onMouseDown={stopPropagation}>
             Delete
         </button>
     )
-    const Save = (
+    const SaveDelete = (
         <>
         <button onClick={saveTodo}>Save</button>
         {Delete}
@@ -107,7 +117,7 @@ const TodoItem = ({ value, id, save, remove, focus, removing, focused }: Props) 
         <div className={classes.todoItem} onClick={startEdit} onFocus={startEdit} tabIndex={0}>
             {isEditing ? Input : Title}
             <div className={classes.todoAction}>
-                {isEditing ? Save : Delete}
+                {isEditing ? SaveDelete : ''}
             </div>
         </div>
     )

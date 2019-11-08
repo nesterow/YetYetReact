@@ -1,21 +1,35 @@
 import { Todo } from 'AppModels';
+import {TodoResponse} from 'AppTypes'
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
-
-import { getTodosAsync, addTodoAsync, removeTodoAsync, setFocus } from './actions';
+import { getTodosAsync, addTodoAsync, removeTodoAsync, saveTodoAcync, setFocus } from './actions';
 
 
 export const isLoading = createReducer(false as boolean)
   .handleAction(
-    [getTodosAsync.request] as any, 
+    [
+      getTodosAsync.request, 
+      addTodoAsync.request, 
+      removeTodoAsync.request,
+      saveTodoAcync.request
+    ] as any, 
     (state, action) => true
   )
   .handleAction(
-    [getTodosAsync.success, getTodosAsync.failure] as any,
+    [
+      getTodosAsync.success, 
+      getTodosAsync.failure,  
+      addTodoAsync.failure, 
+      addTodoAsync.success, 
+      removeTodoAsync.success, 
+      removeTodoAsync.failure,
+      saveTodoAcync.failure,
+      saveTodoAcync.success
+    ] as any,
     (state, action) => false
   );
 
-export const todos = createReducer([] as Todo[])
+export const todos = createReducer({total: 0, data: []} as TodoResponse)
   .handleAction(
       getTodosAsync.success as any, 
       (state, action) => {

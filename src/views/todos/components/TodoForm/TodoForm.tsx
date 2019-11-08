@@ -22,14 +22,12 @@ const mapDispatch = {
 }
 
 
-const TodoForm = ({placeholder = 'Add todo', onCreate}: Props) => {
+const TodoForm = ({placeholder = 'Write whatever you want to do...', onCreate}: Props) => {
     let inputRef: HTMLTextAreaElement 
     const [value, setValue] = useState('')
 
     const addTodo = () => {
-        if (value) {
-            onCreate(value)
-        }
+        if (value) onCreate(value)
         reset()
     }
 
@@ -39,15 +37,19 @@ const TodoForm = ({placeholder = 'Add todo', onCreate}: Props) => {
         inputRef.value = ''
     }
 
+    const classes = useStyles()
+
+
     return (
-        <section>
+        <section className={classes.formContainer}>
             <textarea 
+                className={classes.textArea}
                 ref={(r: HTMLTextAreaElement) => inputRef = r}
                 onKeyUp={(e) => setValue((e.target as any).value)}
                 defaultValue={value}
                 placeholder={placeholder}>
-                </textarea>
-            <div>
+            </textarea>
+            <div className={classes.actions}>
                 <button onClick={addTodo}>Save</button>
                 <button onClick={reset}>Cancel</button>
             </div>

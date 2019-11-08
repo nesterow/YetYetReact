@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import { on } from 'cluster'
+import useStyles from './TodoPagination.style'
 
 type Props = {
     total: number,
@@ -22,13 +22,18 @@ export default ({total, limit, offset, spread = 5, onChange = new Function, }: P
 
     const goForward = () => {
         onChange({
-            offset: Math.min(offset + limit, Math.max(total - limit, 0))
+            offset: Math.min(offset + limit, total - total % limit)
         })
     }
 
+    const classes = useStyles()
+
     return (
-        <div>
+        <div className={classes.paginationContainer}>
             <span>
+                Pages:
+            </span>
+            <span className={classes.paginationButtons}>
                 <button onClick={goBack}>Prev</button>
                 <button onClick={goForward}>Next</button>
             </span>
