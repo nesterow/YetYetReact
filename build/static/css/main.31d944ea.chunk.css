@@ -1,0 +1,2 @@
+body{margin:0;padding:0}.loading{background:linear-gradient(-45deg,#eee,#fff,#ccc,#eee)!important;background-size:400% 400%!important;-webkit-animation:loadingBg 2s ease infinite!important;animation:loadingBg 2s ease infinite!important}.loading>*{pointer-events:none;opacity:.5}@-webkit-keyframes loadingBg{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}@keyframes loadingBg{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}
+/*# sourceMappingURL=main.31d944ea.chunk.css.map */

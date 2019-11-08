@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.31d944ea.chunk.css",
+    "main.js": "/static/js/main.53917797.chunk.js",
+    "main.js.map": "/static/js/main.53917797.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.6c78c497.js",
+    "runtime-main.js.map": "/static/js/runtime-main.6c78c497.js.map",
+    "static/js/2.2dc49339.chunk.js": "/static/js/2.2dc49339.chunk.js",
+    "static/js/2.2dc49339.chunk.js.map": "/static/js/2.2dc49339.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.d56be199efcf982b05ace3243028c01f.js": "/precache-manifest.d56be199efcf982b05ace3243028c01f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.31d944ea.chunk.css.map": "/static/css/main.31d944ea.chunk.css.map",
+    "static/media/wood-pattern.jpg": "/static/media/wood-pattern.6d5e7efa.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c78c497.js",
+    "static/js/2.2dc49339.chunk.js",
+    "static/css/main.31d944ea.chunk.css",
+    "static/js/main.53917797.chunk.js"
+  ]
+}
