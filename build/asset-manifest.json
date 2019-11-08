@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/YetYetReact/build/static/css/main.31d944ea.chunk.css",
-    "main.js": "/YetYetReact/build/static/js/main.8921097b.chunk.js",
-    "main.js.map": "/YetYetReact/build/static/js/main.8921097b.chunk.js.map",
+    "main.js": "/YetYetReact/build/static/js/main.20f6cd32.chunk.js",
+    "main.js.map": "/YetYetReact/build/static/js/main.20f6cd32.chunk.js.map",
     "runtime-main.js": "/YetYetReact/build/static/js/runtime-main.802fb759.js",
     "runtime-main.js.map": "/YetYetReact/build/static/js/runtime-main.802fb759.js.map",
     "static/js/2.2dc49339.chunk.js": "/YetYetReact/build/static/js/2.2dc49339.chunk.js",
     "static/js/2.2dc49339.chunk.js.map": "/YetYetReact/build/static/js/2.2dc49339.chunk.js.map",
     "index.html": "/YetYetReact/build/index.html",
-    "precache-manifest.b1589c078ee92794dce70d3f0c6e3526.js": "/YetYetReact/build/precache-manifest.b1589c078ee92794dce70d3f0c6e3526.js",
+    "precache-manifest.4cbf4a49312cac6a66b0fdb5d5696473.js": "/YetYetReact/build/precache-manifest.4cbf4a49312cac6a66b0fdb5d5696473.js",
     "service-worker.js": "/YetYetReact/build/service-worker.js",
     "static/css/main.31d944ea.chunk.css.map": "/YetYetReact/build/static/css/main.31d944ea.chunk.css.map",
     "static/media/wood-pattern.jpg": "/YetYetReact/build/static/media/wood-pattern.6d5e7efa.jpg"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.802fb759.js",
     "static/js/2.2dc49339.chunk.js",
     "static/css/main.31d944ea.chunk.css",
-    "static/js/main.8921097b.chunk.js"
+    "static/js/main.20f6cd32.chunk.js"
   ]
 }

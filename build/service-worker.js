@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/YetYetReact/build/precache-manifest.b1589c078ee92794dce70d3f0c6e3526.js"
+  "/YetYetReact/build/precache-manifest.4cbf4a49312cac6a66b0fdb5d5696473.js"
 );
 
 self.addEventListener('message', (event) => {

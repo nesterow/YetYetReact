@@ -5,7 +5,7 @@ import woodPattern from './styles/wood-pattern.jpg'
 
 
 export default () => (
-    <Route exact path="/">
+    <Route exact path={`${process.env.PUBLIC_URL}/`}>
         <div style={{ 
                 display: 'flex', 
                 justifyContent: 'center', 

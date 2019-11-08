@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "803d1ed959c54d4f91fbd3f13c305304",
+    "revision": "25f8502541d5c55b83d15e241405a477",
     "url": "/YetYetReact/build/index.html"
   },
   {
-    "revision": "2a3957324189a3168104",
+    "revision": "5543d3819f9070c30e94",
     "url": "/YetYetReact/build/static/css/main.31d944ea.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/YetYetReact/build/static/js/2.2dc49339.chunk.js"
   },
   {
-    "revision": "2a3957324189a3168104",
-    "url": "/YetYetReact/build/static/js/main.8921097b.chunk.js"
+    "revision": "5543d3819f9070c30e94",
+    "url": "/YetYetReact/build/static/js/main.20f6cd32.chunk.js"
   },
   {
     "revision": "e8b3a290963d57dd1a2c",
