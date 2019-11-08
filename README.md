@@ -1,6 +1,8 @@
 ## YetYet Another React
 Super mega awesome yet-yet another waste of my skills.
 
+[Preview](https://nesterow.github.io/YetYetReact/build/)
+
 ## Stack
 - TypeScript
 - React
