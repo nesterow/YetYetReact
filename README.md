@@ -29,7 +29,7 @@ Super mega awesome yet-yet another waste of my skills.
 
 4. Styles
 
-Maybe some day in the future. The idea is that you use SCSS only for writing skins, default styles be shipped within components. 
+- Maybe some day in the future. The idea is that you use SCSS only for writing skins, default styles be shipped within components. 
 
 5. Another links
 - CSS-only Slot Machine ([Repo](https://github.com/nesterow/reels/) / [Preview](https://nesterow.github.io/reels/dist/index.html))
